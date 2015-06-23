@@ -94,15 +94,13 @@ def attach(env):
 
     # Check if the mapping already exists
     d_id = vlmc.is_mapped(name)
-    if d_id is not None:
-      # The mapping exists. Return it.
-        sys.stdout.write("%s" % str(DEVICE_PREFIX + str(d_id)))
-        return 0
-    # The mapping doesn't exist. Create it.
-    d_id = vlmc.map_volume(name=name)
+    if d_id is None:
+        # The mapping doesn't exist. Create it.
+        d_id = vlmc.map_volume(name=name)
     # The device was successfully mapped. Return it.
     #maybe assert (d_id == vlmc.is_mapped(name)
-    sys.stdout.write("%s" % str(DEVICE_PREFIX + str(d_id)))
+    sys.stdout.write("%s\n" % str(DEVICE_PREFIX + str(d_id)))
+    sys.stdout.write("kvm:archipelago:%s\n" % str(name))
     return 0
 
 
